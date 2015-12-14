@@ -10,10 +10,15 @@
               [demos.lazy :as lazy]
               [demos.macros :as macros]
               [demos.multi :as multi]
+              [demos.protocols :as protos]
+              [demos.records :as recs]
+              [demos.search :as search]
+              [demos.types :as types]
               [re-com.core :as h]))
 
 (async/go)
 (chans/go)
+(search/go)
 
 (defn empty-page [] [:p "Nuthin'"])
 (defonce state (atom {:current-page empty-page}))
@@ -35,7 +40,11 @@
       (section-link fun/page "Functional")
       (section-link lazy/page "Lazy")
       (section-link macros/page "Macros")
-      (section-link multi/page "Multimethods")]])
+      (section-link multi/page "Multimethods")
+      (section-link protos/page "Protocols")
+      (section-link recs/page "Records")
+      (section-link search/page "Search")
+      (section-link types/page "Types")]])
 
 (defn current-page []
   [h/v-box

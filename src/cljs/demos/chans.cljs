@@ -12,6 +12,8 @@
     (reset! state (<! my-chan))
     (get-msg)))
 
+; goodbye callback hell
+
 (defn go []
   (get-msg))
 
