@@ -17,10 +17,8 @@
                  [hiccup "1.0.5"]
                  [environ "1.0.1"]
                  [org.clojure/clojurescript "1.7.170" :scope "provided"]
-                 [secretary "1.2.3"]
-                 [venantius/accountant "0.1.5"
-                  :exclusions [org.clojure/tools.reader]]
-                 [org.clojure/core.async "0.2.374"]]
+                 [org.clojure/core.async "0.2.374"]
+                 [re-com "0.7.0"]]
 
   :plugins [[lein-environ "1.0.1"]
             [lein-cljsbuild "1.1.1"]
