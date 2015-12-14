@@ -1,4 +1,5 @@
-(ns demos.derivation)
+(ns demos.derivation
+  (:require [reagent.core :as r][re-com.core :as h]))
 
 (derive ::person ::animal)
 (derive ::beast ::animal)
@@ -24,7 +25,14 @@
 (defmethod is-cool ::uncool [_] "nah")
 (defmethod is-cool :default [_] "meh")
 
+(defonce state (r/atom ""))
+
+(defn speak-btn [w]
+  [h/button :label (str w) :on-click #(reset! state (speak w))])
+
 (defn page []
-  (reduce into [:div]
-    [(map speak animals)
-    (map (comp (partial into [:p]) is-cool) [1 2])]))
+  [h/v-box
+    :children [
+      [h/h-box
+        :children (map speak-btn animals)]
+      [h/label :label @state]]])

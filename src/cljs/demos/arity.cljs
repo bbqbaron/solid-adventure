@@ -1,5 +1,6 @@
 (ns demos.arity
-  (:require [reagent.core :as r]))
+  (:require [reagent.core :as r]
+    [re-com.core :as h]))
 
   ; (+ 1 2)
   ; (- 3 1)
@@ -35,17 +36,17 @@
 
 
 
-(defonce state (r/atom ""))
+(defonce state (r/atom "<hit a button>w"))
 
 (defn foo
-  ([a] "1 arg")
-  ([a b] "2 arg")
+  ([a] 1)
+  ([a b] 2)
   ; must have at least the arity of the previous!
-  ([a b & foos] (str (+ 2 (count foos)) " args")))
+  ([a b & foos] (+ 2 (count foos))))
 
 (defn page []
   [:div
-    [:p @state]
-    [:div {:on-click #(reset! state (foo 0))} "foo 0"]
-    [:div {:on-click #(reset! state (foo 0 0))} "foo 0 0"]
-    [:div {:on-click #(reset! state (foo 0 0 0 0 0 0 0 0))} "foo 0 0 0 0 0 0 0 0"]])
+    [:p (str "# args: " @state)]
+    [h/button :on-click #(reset! state (foo 0)) :label "(foo 0)"]
+    [h/button :on-click #(reset! state (foo 0 0)) :label "(foo 0 0)"]
+    [h/button :on-click #(reset! state (foo 0 0 0 0 0 0 0 0)) :label "(foo 0 0 0 0 0 0 0 0)"]])

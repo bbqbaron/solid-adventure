@@ -1,4 +1,5 @@
-(ns demos.multi)
+(ns demos.multi
+  (:require [reagent.core :as r][re-com.core :as h]))
 
 (defonce animals [{:species :dog} {:species :cat} {:species :reindeer} {:species :gila-monster}])
 
@@ -9,5 +10,13 @@
 (defmethod speak :reindeer [_] "...honk?")
 (defmethod speak :default [_] "stony silence")
 
-(defn page [] [:div
-  (map (fn [a] [:p (speak a)]) animals)])
+(defonce state (r/atom ""))
+
+(defn speak-btn [w]
+  [h/button :label (str w) :on-click #(reset! state (speak w))])
+
+(defn page []
+  [h/v-box
+    :children [
+      [h/h-box :children (map speak-btn animals)]
+      [h/label :label @state]]])

@@ -1,11 +1,11 @@
 (ns demos.chans
   (:require [cljs.core.async :refer [chan <! >!]]
-    [reagent.core :as r])
+    [reagent.core :as r] [re-com.core :as h])
   (:require-macros [cljs.core.async.macros :as m]))
 
 (defonce my-chan (chan))
 
-(defonce state (r/atom "so lonely"))
+(defonce state (r/atom ""))
 
 (defn get-msg []
   (m/go
@@ -16,7 +16,8 @@
   (get-msg))
 
 (defn page []
-  [:div
-    [:div {:on-click #(reset! state "")} [:p "reset"]]
-    [:div {:on-click (fn [] (m/go (>! my-chan "hi")))} [:p "send"]]
-    [:p @state]])
+  [h/h-box
+    :children [
+      [h/button :on-click #(reset! state "") :label "reset"]
+      [h/button :on-click (fn [] (m/go (>! my-chan "hi"))) :label "send"]
+      [h/label :label (str "Got: " @state)]]])

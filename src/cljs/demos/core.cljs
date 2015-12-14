@@ -27,7 +27,7 @@
   [h/h-box
     :size "auto"
     :children [
-      (section-link async/page "Async")
+      (section-link async/page "Async Loop")
       (section-link chans/page "Chans")
       (section-link arity/page "Arity")
       (section-link derivation/page "Derivation")
