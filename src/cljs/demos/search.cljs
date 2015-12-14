@@ -24,7 +24,7 @@
   (str wiki-search-url q))
 
 (defn search-btn []
-  [h/button :on-click (fn [] (print "click") (put! search-req true)) :label "go"])
+  [h/button :on-click #(put! search-req @query) :label "go"])
 
 (defn search-field []
   [h/input-text
@@ -47,6 +47,5 @@
 (defn go []
   (m/go
     (while true
-      (<! search-req)
-      (print "request")
-      (jsonp (query-url @query)))))
+      (let [query (<! search-req)]
+        (jsonp (query-url query))))))
